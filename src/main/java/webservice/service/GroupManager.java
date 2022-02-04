@@ -2,6 +2,7 @@ package webservice.service;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import webservice.jsonUtil.ReadJson;
@@ -13,12 +14,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class GroupManager {
-    @Value("${url.allGroups}")
+    @Value("${URL}")
     private String urlAllGroups;
+
+    @Autowired
+    private ReadJson reader;
 
     public List<Group> getAllGroups() {
         List<Group> groups = new ArrayList<>();
-        ReadJson reader = new ReadJson();
         JSONObject json = reader.readJsonFromUrl(urlAllGroups);
         JSONArray groupsJson = (JSONArray) json.get("data");
         for (int i = 0; i < groupsJson.length(); i++) {

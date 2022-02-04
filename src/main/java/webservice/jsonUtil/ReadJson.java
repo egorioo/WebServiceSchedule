@@ -2,11 +2,13 @@ package webservice.jsonUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+@Component
 public class ReadJson {
     public JSONObject readJsonFromUrl(String link) throws JSONException {
         try (InputStream input = new URL(link).openStream()) {
@@ -15,8 +17,9 @@ public class ReadJson {
             JSONObject json = new JSONObject(text);
             return json;
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
+        return null;
     }
 
     public String Read(Reader re) throws IOException {
