@@ -20,7 +20,7 @@ public class LoggingAspect {
     public void controllerMethods() {
     }
 
-    @Pointcut("within(webservice.jsonUtil.ReadJson)")
+    @Pointcut("within(webservice.jsonUtils.ReadJson)")
     public void jsonMethods() {
     }
 

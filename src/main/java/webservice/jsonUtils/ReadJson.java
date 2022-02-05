@@ -1,4 +1,4 @@
-package webservice.jsonUtil;
+package webservice.jsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
