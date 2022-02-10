@@ -4,22 +4,27 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import webservice.jsonUtil.ReadJson;
+import webservice.jsonUtils.ReadJson;
 import webservice.models.Group;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GroupManager {
     @Value("${URL}")
     private String urlAllGroups;
 
-    @Autowired
-    private ReadJson reader;
+    private final ReadJson reader;
 
+    @Autowired
+    public GroupManager(ReadJson reader) {
+        this.reader = reader;
+    }
+
+    @Cacheable("getAllGroups")
     public List<Group> getAllGroups() {
         List<Group> groups = new ArrayList<>();
         JSONObject json = reader.readJsonFromUrl(urlAllGroups);
@@ -36,6 +41,7 @@ public class GroupManager {
         return groups;
     }
 
+    @Cacheable("getAllGroupsByName")
     public List<String> getGroupsName() {
         List<String> list = new ArrayList<>();
         getAllGroups().stream().forEach(group -> list.add(group.getFullName()));

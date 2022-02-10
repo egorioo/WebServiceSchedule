@@ -21,8 +21,8 @@ public class MainController {
     }
 
     @GetMapping
-    public List<String> getAllGroups() {
-        return groupManager.getGroupsName();
+    public List<Group> getAllGroups() {
+        return groupManager.getAllGroups();
     }
 
     @GetMapping("/{groupName}")
